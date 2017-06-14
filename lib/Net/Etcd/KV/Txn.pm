@@ -71,7 +71,6 @@ responses in order.
 
 has compare => (
     is       => 'ro',
-    isa      => ArrayRef,
     required => 1,
 );
 
@@ -83,7 +82,6 @@ success is a list of requests which will be applied when compare evaluates to tr
 
 has success => (
     is     => 'ro',
-    isa    => ArrayRef,
 );
 
 =head2 failure
@@ -94,7 +92,6 @@ failure is a list of requests which will be applied when compare evaluates to fa
 
 has failure => (
     is     => 'ro',
-    isa    => ArrayRef,
 );
 
 1;

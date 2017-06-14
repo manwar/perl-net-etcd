@@ -11,6 +11,8 @@ use Moo::Role;
 use Types::Standard qw(Str Int Bool HashRef ArrayRef);
 use Net::Etcd::KV::Put;
 use Net::Etcd::KV::Range;
+use Net::Etcd::KV::Op;
+use Net::Etcd::KV::Compare;
 
 with 'Net::Etcd::Role::Actions';
 use namespace::clean;
@@ -71,7 +73,7 @@ sub put {
         cb       => $cb,
         ( $options ? %$options : () ),
     );
-    $put->request;
+    $put->request unless $put->hold;
     return $put;
 }
 
@@ -94,8 +96,37 @@ sub txn {
         cb       => $cb,
         ( $options ? %$options : () ),
     );
-    $txn->request;
-    return $txn;
+    $txn->request unless $txn->hold;
+    return $txn; 
 }
+
+=head2 op
+
+=cut
+
+sub op {
+    my ( $self, $options ) = @_;
+    my $cb = pop if ref $_[-1] eq 'CODE';
+    my $op = Net::Etcd::KV::Op->new(
+        %$self,
+        ( $options ? %$options : () ),
+    );
+    return $op;
+}
+
+=head2 compare
+
+=cut
+
+sub compare {
+    my ( $self, $options ) = @_; 
+    my $cb = pop if ref $_[-1] eq 'CODE';
+    my $cmp = Net::Etcd::KV::Compare->new(
+        %$self,
+        ( $options ? %$options : () ),
+    );  
+    return $cmp;
+}
+
 
 1;
