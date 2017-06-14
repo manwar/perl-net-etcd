@@ -308,9 +308,9 @@ Returns a L<Net::Etcd::KV::Txn> object.
 
 =cut
 
-=head2 multiop
+=head2 op
 
-Returns a L<Net::Etcd::KV::MultiOp> object.
+Returns a L<Net::Etcd::KV::Op> object.
 
 =cut
 

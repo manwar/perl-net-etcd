@@ -1,5 +1,5 @@
 use utf8;
-package Net::Etcd::KV::Op;
+package Net::Etcd::KV::MultiOp;
 
 use strict;
 use warnings;
@@ -20,12 +20,11 @@ Net::Etcd::KV::Op
 
 =cut
 
-our $VERSION = '0.009';
+our $VERSION = '0.010';
 
 =head1 DESCRIPTION
 
 Op
-
 
 =head1 ACCESSORS
 

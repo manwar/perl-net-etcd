@@ -17,7 +17,7 @@ else {
     plan skip_all => "Please set environment variable ETCD_TEST_HOST and ETCD_TEST_PORT.";
 }
 
-my ($put, $op, $compare);
+my ($put, $op, $compare, $txn);
 my $etcd = Net::Etcd->new( { host => $host, port => $port } );
 
 lives_ok(
@@ -41,7 +41,14 @@ print STDERR Dumper($op);
 
 lives_ok(
     sub {
-        $compare = $etcd->compare( { key => 'foo', result => 'EQUAL', target => 'CREATE', create_revision => 0 } );
+        $compare = $etcd->compare( { key => 'foo', result => 'EQUAL', target => 'CREATE', create_revision => 0 });
+    },
+    "compare create"
+);
+
+lives_ok(
+    sub {
+        $txn = $etcd->txn( { compare => @$compare, success => @$op } );
     },
     "compare create"
 );
