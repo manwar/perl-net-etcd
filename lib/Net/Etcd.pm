@@ -308,6 +308,18 @@ Returns a L<Net::Etcd::KV::Txn> object.
 
 =cut
 
+=head2 multiop
+
+Returns a L<Net::Etcd::KV::MultiOp> object.
+
+=cut
+
+=head2 compare
+
+Returns a L<Net::Etcd::KV::Compare> object.
+
+=cut
+
 =head2 configuration
 
 Initialize configuration checks to see it etcd is installed locally.

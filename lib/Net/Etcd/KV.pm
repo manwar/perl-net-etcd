@@ -11,7 +11,7 @@ use Moo::Role;
 use Types::Standard qw(Str Int Bool HashRef ArrayRef);
 use Net::Etcd::KV::Put;
 use Net::Etcd::KV::Range;
-use Net::Etcd::KV::Op;
+use Net::Etcd::KV::MultiOp;
 use Net::Etcd::KV::Compare;
 
 with 'Net::Etcd::Role::Actions';
@@ -100,14 +100,14 @@ sub txn {
     return $txn; 
 }
 
-=head2 op
+=head2 multiop
 
 =cut
 
-sub op {
+sub multiop {
     my ( $self, $options ) = @_;
     my $cb = pop if ref $_[-1] eq 'CODE';
-    my $op = Net::Etcd::KV::Op->new(
+    my $op = Net::Etcd::KV::MultiOp->new(
         %$self,
         ( $options ? %$options : () ),
     );
